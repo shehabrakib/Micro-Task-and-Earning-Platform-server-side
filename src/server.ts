@@ -1,29 +1,32 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import { env } from './config/env'
+import authRouter from './routes/auth.routes'
 
 const app = express()
-const PORT = process.env.PORT || 5000
 
-// middleware
-app.use(cors({ origin: 'http://localhost:5173' }))  // your Vite frontend URL
+app.use(cors({ origin: env.clientOrigin }))
 app.use(express.json())
 
-// health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
-const startServer = async () => {
+app.use('/api/auth', authRouter)
+
+const startServer = async (): Promise<void> => {
   try {
-    await mongoose.connect(process.env.MONGO_URI!)
+    await mongoose.connect(env.mongoUri)
     console.log('MongoDB connected')
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
-  } catch (err) {
-    console.log('DB connection error:', err)
+
+    app.listen(env.port, () => {
+      console.log(`Server running on port ${env.port}`)
+    })
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown database connection error'
+    console.error('DB connection error:', message)
+    process.exit(1)
   }
 }
 

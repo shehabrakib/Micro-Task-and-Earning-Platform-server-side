@@ -6,6 +6,7 @@ import authRouter from './routes/auth.routes'
 import submissionsRouter from './routes/submissions.routes'
 import tasksRouter from './routes/tasks.routes'
 import usersRouter from './routes/users.routes'
+import withdrawalsRouter from './routes/withdrawals.routes'
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/tasks', tasksRouter)
 app.use('/api/submissions', submissionsRouter)
+app.use('/api/withdrawals', withdrawalsRouter)
 
 const startServer = async (): Promise<void> => {
   try {

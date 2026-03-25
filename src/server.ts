@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import { env } from './config/env'
 import authRouter from './routes/auth.routes'
+import paymentsRouter from './routes/payments.routes'
 import submissionsRouter from './routes/submissions.routes'
 import tasksRouter from './routes/tasks.routes'
 import usersRouter from './routes/users.routes'
@@ -22,6 +23,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/tasks', tasksRouter)
 app.use('/api/submissions', submissionsRouter)
 app.use('/api/withdrawals', withdrawalsRouter)
+app.use('/api/payments', paymentsRouter)
 
 const startServer = async (): Promise<void> => {
   try {

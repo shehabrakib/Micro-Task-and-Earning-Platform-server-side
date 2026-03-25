@@ -17,6 +17,8 @@
   "scripts": {
     "start": "bun src/server.ts",
     "dev": "bun --watch src/server.ts",
+    "seed": "bun src/scripts/seed.ts",
+    "seed:reset": "bun src/scripts/seed.ts --reset",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import { env } from './config/env'
 import authRouter from './routes/auth.routes'
+import tasksRouter from './routes/tasks.routes'
 import usersRouter from './routes/users.routes'
 
 const app = express()
@@ -16,6 +17,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/tasks', tasksRouter)
 
 const startServer = async (): Promise<void> => {
   try {
